@@ -14,9 +14,18 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet test --configuration $(buildConfiguration) --logger trx
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  inputs:
+    command: build
+    configuration: $(buildConfiguration)
+
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
+  inputs:
+    command: test
+    configuration: $(buildConfiguration)
+    arguments: '--logger trx'
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
