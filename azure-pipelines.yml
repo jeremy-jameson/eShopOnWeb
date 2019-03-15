@@ -25,10 +25,4 @@ steps:
   inputs:
     command: test
     configuration: $(buildConfiguration)
-    arguments: '--logger trx'
-
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFormat: VSTest
-    testResultsFiles: '**/*.trx'
+    publishTestResults: true
